@@ -1,4 +1,4 @@
-import { BracketItemComponent } from '@/components'
+import { BracketItemComponent, InputTeamCountComponent } from '@/components'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <>
+      <InputTeamCountComponent onClickHandler={() => { }} />
       <BracketItemComponent />
     </>
   )
