@@ -2,16 +2,21 @@ import { createData } from "@/firebase/operation";
 import React from "react";
 import { InputTeamCountComponent } from "./InputTeamCount";
 
+import { ResultType } from "@/Models";
+
 interface ControlPanelComponentProps {
+  totalResult: ResultType
   onClickHandler: (data: number) => void,
 }
 
 export const ControlPanelComponent: React.FC<ControlPanelComponentProps> = ({
+  totalResult,
   onClickHandler
 }) => {
 
   const showResultHandler = (): void => {
-    createData()
+    const data: ResultType = totalResult
+    createData(totalResult)
   }
   return (
     <div className="flex flex-row border-b-2 mb-10">

@@ -1,25 +1,15 @@
 import { doc, setDoc } from "firebase/firestore";
 import { dataBase } from "../config";
 
-export const createData = async () => {
-  const timeStame: string = Date.now().toString();
+import { ResultType } from "@/Models";
 
-  const _create = doc(dataBase, `create-data/${timeStame}`);
+export const createData = async (data: ResultType) => {
+  const timeStamp: string = Date.now().toString();
 
-  const createData = {
-    _index: 0,
-    home: {
-      name: "",
-      score: 0,
-    },
-    visitor: {
-      name: "",
-      score: 0,
-    },
-  };
+  const _create = doc(dataBase, `create-data/${timeStamp}`);
 
   try {
-    await setDoc(_create, createData);
+    await setDoc(_create, data);
   } catch (error) {
     console.log("An error to add data!");
   }

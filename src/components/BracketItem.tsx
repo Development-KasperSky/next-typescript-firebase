@@ -1,14 +1,20 @@
 import React from "react";
 
+import { ResultType } from "@/Models";
+
 type BracketItemComponentProps = {
+  setTotalResult: (result: ResultType) => void
   disable: boolean
+  uIndex: number
 }
 
 export const BracketItemComponent: React.FC<BracketItemComponentProps> = ({
-  disable
+  setTotalResult,
+  disable,
+  uIndex
 }) => {
-  const [result, setResult] = React.useState({
-    "index": 0,
+  const [result, setResult] = React.useState<ResultType>({
+    "_index": 0,
     "home": {
       "name": "",
       "score": 0
@@ -19,56 +25,38 @@ export const BracketItemComponent: React.FC<BracketItemComponentProps> = ({
     },
   });
 
-  const onChangeHome = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setResult((prevObj) => ({
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>, status: string) => {
+    const valueName = e.target.name;
+
+    setTotalResult((prevObj) => ({
       ...prevObj,
+      _index: {
+        ...prevObj._index,
+        ...uIndex
+      },
       home: {
         ...prevObj.home,
-        name: (e.target as HTMLInputElement).value
-      }
-    }));
-  }
-
-  const onChangeFirstScore = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setResult((prevObj) => ({
-      ...prevObj,
-      home: {
-        ...prevObj.home,
-        score: Number((e.target as HTMLInputElement).value)
-      }
-    }));
-  }
-  ``
-  const onChangeVisitor = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setResult((prevObj) => ({
-      ...prevObj,
+        ...(status === "home" && { [valueName]: e.target.value })
+      },
       visitor: {
         ...prevObj.visitor,
-        name: (e.target as HTMLInputElement).value
+        ...(status === "visitor" && { [valueName]: e.target.value })
       }
     }));
+
   }
 
-  const onChangeSecondScore = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setResult((prevObj) => ({
-      ...prevObj,
-      visitor: {
-        ...prevObj.visitor,
-        score: Number((e.target as HTMLInputElement).value)
-      }
-    }));
-  }
 
   return (
     <>
       <form className='flex flex-col mb-3'>
         <div>
-          <input disabled={disable} className='w-40 h-9 text-zinc-900 pl-3 rounded-tl-2xl border-amber-700 border-2' name='home' type="text" onChange={onChangeHome} />
-          <input className='w-14 h-9 text-zinc-900 pl-2 rounded-tr-2xl border-amber-700 border-r-2 border-b-2 border-t-2' name='first_score' type="number" onChange={onChangeFirstScore} />
+          <input disabled={disable} className='w-40 h-9 text-zinc-900 pl-3 rounded-tl-2xl border-amber-700 border-2' name='name' type="text" onChange={(e) => onChangeHandler(e, "home")} />
+          <input className='w-14 h-9 text-zinc-900 pl-2 rounded-tr-2xl border-amber-700 border-r-2 border-b-2 border-t-2' name='score' type="number" onChange={(e) => onChangeHandler(e, "home")} />
         </div>
         <div>
-          <input disabled={disable} className='w-40 h-9 text-zinc-900  rounded-bl-2xl pl-3 border-amber-700 border-l-2 border-r-2 border-b-2' name='visitor' type="text" onChange={onChangeVisitor} />
-          <input className='w-14 h-9 text-zinc-900 rounded-br-2xl pl-2 border-amber-700 border-r-2 border-b-2' name='second_score' type="number" onChange={onChangeSecondScore} />
+          <input disabled={disable} className='w-40 h-9 text-zinc-900  rounded-bl-2xl pl-3 border-amber-700 border-l-2 border-r-2 border-b-2' name='name' type="text" onChange={(e) => onChangeHandler(e, "visitor")} />
+          <input className='w-14 h-9 text-zinc-900 rounded-br-2xl pl-2 border-amber-700 border-r-2 border-b-2' name='score' type="number" onChange={(e) => onChangeHandler(e, "visitor")} />
         </div>
       </form>
     </>
