@@ -1,6 +1,12 @@
 import React from "react";
 
-export const BracketItemComponent: React.FC = () => {
+type BracketItemComponentProps = {
+  disable: boolean
+}
+
+export const BracketItemComponent: React.FC<BracketItemComponentProps> = ({
+  disable
+}) => {
   const [result, setResult] = React.useState({
     "home": {
       "name": "",
@@ -57,11 +63,11 @@ export const BracketItemComponent: React.FC = () => {
     <>
       <form className='flex flex-col mb-3'>
         <div>
-          <input className='w-40 h-9 text-zinc-900 pl-3 rounded-tl-2xl border-amber-700 border-2' name='home' type="text" onChange={onChangeHome} />
+          <input disabled={disable} className='w-40 h-9 text-zinc-900 pl-3 rounded-tl-2xl border-amber-700 border-2' name='home' type="text" onChange={onChangeHome} />
           <input className='w-14 h-9 text-zinc-900 pl-2 rounded-tr-2xl border-amber-700 border-r-2 border-b-2 border-t-2' name='first_score' type="number" onChange={onChangeFirstScore} />
         </div>
         <div>
-          <input className='w-40 h-9 text-zinc-900  rounded-bl-2xl pl-3 border-amber-700 border-l-2 border-r-2 border-b-2' name='visitor' type="text" onChange={onChangeVisitor} />
+          <input disabled={disable} className='w-40 h-9 text-zinc-900  rounded-bl-2xl pl-3 border-amber-700 border-l-2 border-r-2 border-b-2' name='visitor' type="text" onChange={onChangeVisitor} />
           <input className='w-14 h-9 text-zinc-900 rounded-br-2xl pl-2 border-amber-700 border-r-2 border-b-2' name='second_score' type="number" onChange={onChangeSecondScore} />
         </div>
       </form>
