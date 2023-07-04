@@ -8,6 +8,7 @@ export const BracketItemComponent: React.FC<BracketItemComponentProps> = ({
   disable
 }) => {
   const [result, setResult] = React.useState({
+    "index": 0,
     "home": {
       "name": "",
       "score": 0
@@ -16,7 +17,6 @@ export const BracketItemComponent: React.FC<BracketItemComponentProps> = ({
       "name": "",
       "score": 0
     },
-    "level": 0
   });
 
   const onChangeHome = (e: React.ChangeEvent<HTMLInputElement>) => {
